@@ -128,3 +128,12 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+nginx/crt/kwai.chinawarthog.com_bundle.crt
+nginx/crt/kwai.chinawarthog.com_bundle.pem
+nginx/crt/kwai.chinawarthog.com.csr
+nginx/crt/kwai.chinawarthog.com.key
+.DS_Store
+root.crt
+root.key
+nginx/crt/server.crt
+nginx/crt/server.key

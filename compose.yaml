@@ -1,0 +1,22 @@
+
+services:
+  web1:
+    restart: on-failure
+    build: ./web
+    hostname: web1
+    ports:
+      - '81:3000'
+  web2:
+    restart: on-failure
+    build: ./web
+    hostname: web2
+    ports:
+      - '82:3000'
+  nginx:
+    build: ./nginx
+    ports:
+    - '443:443'
+    depends_on:
+    - web1
+    - web2
+
