@@ -4,19 +4,27 @@ services:
     restart: on-failure
     build: ./web
     hostname: web1
-    ports:
-      - '81:3000'
+    # ports:
+    #   - '81:3000'
   web2:
     restart: on-failure
     build: ./web
     hostname: web2
-    ports:
-      - '82:3000'
+    # ports:
+    #   - '82:3000'
   nginx:
     build: ./nginx
+    secrets:
+       - nginx_ssl_crt
+       - ngingx_ssl_key
     ports:
     - '443:443'
     depends_on:
     - web1
     - web2
 
+secrets:
+  nginx_ssl_crt:
+    file: ./nginx/crt/kwai.chinawarthog.com_bundle.crt
+  ngingx_ssl_key:
+    file: ./nginx/crt/kwai.chinawarthog.com.key
