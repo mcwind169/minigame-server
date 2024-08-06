@@ -1,17 +1,24 @@
 
 services:
+  redis:
+    # image: 'redislabs/redismod'
+    image: 'redis:7.4.0-alpine'
+    # ports:
+    #   - '6379:6379'
+
   web1:
     restart: on-failure
-    build: ./web
+    build:
+      context: ./web
+      target: dev
+    volumes:
+      - ./web/src:/usr/src/app/src
     hostname: web1
     # ports:
     #   - '81:3000'
-  web2:
-    restart: on-failure
-    build: ./web
-    hostname: web2
-    # ports:
-    #   - '82:3000'
+    depends_on:
+      - redis
+      
   nginx:
     build: ./nginx
     secrets:
@@ -21,7 +28,6 @@ services:
     - '443:443'
     depends_on:
     - web1
-    - web2
 
 secrets:
   nginx_ssl_crt:
