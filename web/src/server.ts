@@ -1,10 +1,16 @@
 
 import express from 'express';
 import Redis from 'ioredis';
+import https from 'node:https'
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+const htps =
+function sendHttpsRequest() {
+
+
+}
 // Create a Redis client
 const redis = new Redis(6379, 'redis');
 
@@ -12,7 +18,7 @@ app.use(express.json());
 
 app.post('/login', async (req, res) => {
   const code = req.body.kwaiCode;
-  if(!code){
+  if (!code) {
     console.log('cant find kwai code');
   }
   res.send(req.body);
