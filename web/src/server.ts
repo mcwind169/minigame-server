@@ -6,14 +6,17 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Create a Redis client
-const redis = new Redis(6379,'redis');
+const redis = new Redis(6379, 'redis');
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello Redis with Express.js and TypeScript!');
+app.post('/login', async (req, res) => {
+  const code = req.body.kwaiCode;
+  if(!code){
+    console.log('cant find kwai code');
+  }
+  res.send(req.body);
 });
-
 // Example of caching data
 app.get('/cache', async (req, res) => {
   const cachedData = await redis.get('cachedData');
