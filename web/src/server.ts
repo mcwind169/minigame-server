@@ -1,27 +1,29 @@
 
 import express from 'express';
 import Redis from 'ioredis';
-import https from 'node:https'
+import axios from 'axios';
+
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-const htps =
-function sendHttpsRequest() {
-
-
-}
 // Create a Redis client
 const redis = new Redis(6379, 'redis');
 
 app.use(express.json());
 
 app.post('/login', async (req, res) => {
-  const code = req.body.kwaiCode;
-  if (!code) {
-    console.log('cant find kwai code');
-  }
-  res.send(req.body);
+
+  const params = new URLSearchParams({
+    grant_type: 'client_credentials',
+    client_id: 'kwaisyl6xcyuh6fu',
+    client_secret: 'aef8b4bc45666b3a7d23579843615d3c7c26e2ec'
+  });
+  const rsp = await axios.post("https://game.kwai.com/openapi/oauth/token", params);
+
+  console.log(rsp);
+
+  res.json(rsp.data);
 });
 // Example of caching data
 app.get('/cache', async (req, res) => {
