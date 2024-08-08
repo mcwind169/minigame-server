@@ -9,10 +9,10 @@ services:
   web1:
     restart: on-failure
     build:
-      context: ./web
-      target: dev
+      context: ./webgo
+      target: final
     volumes:
-      - ./web/src:/usr/src/app/src
+      - ./webgo:/src
     hostname: web1
     # ports:
     #   - '81:3000'
